@@ -1,7 +1,7 @@
 //using System.Data.Entity;
 using Microsoft.EntityFrameworkCore;
 
-namespace Libary
+namespace Library
 {
 
     public class Author
@@ -68,7 +68,7 @@ namespace Libary
         public HaveRead HaveReak { get; set; }
     }
 
-    public class LibaryContex : DbContext
+    public class LibraryContex : DbContext
     {
         public DbSet<Author> Authors { get; set; }
         public DbSet<Translator> Translators { get; set; }
@@ -80,7 +80,7 @@ namespace Libary
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=DESKTOP-5JJ7LE4\SQLEXPRESS; Database=Libary; Trusted_Connection=True");
+            optionsBuilder.UseSqlServer(@"Server=DESKTOP-5JJ7LE4\SQLEXPRESS; Database=Library; Trusted_Connection=True");
         }
     }
 
@@ -95,7 +95,7 @@ namespace Libary
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new frmLibary());
+            Application.Run(new frmLibrary());
         }
     }
 }
