@@ -32,12 +32,14 @@
             this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.oProgramieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zamknijToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sfdCreateDB = new System.Windows.Forms.SaveFileDialog();
-            this.ofdOpenDB = new System.Windows.Forms.OpenFileDialog();
             this.dgvAllBooks = new System.Windows.Forms.DataGridView();
-            this.btnAddNew = new System.Windows.Forms.Button();
+            this.btnAddNewBook = new System.Windows.Forms.Button();
             this.btnModify = new System.Windows.Forms.Button();
             this.btnRemove = new System.Windows.Forms.Button();
+            this.btnAddNewSeries = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.btnAddNewTranslator = new System.Windows.Forms.Button();
+            this.btnAddNewAuthor = new System.Windows.Forms.Button();
             this.msMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAllBooks)).BeginInit();
             this.SuspendLayout();
@@ -86,15 +88,15 @@
             this.dgvAllBooks.Size = new System.Drawing.Size(1405, 267);
             this.dgvAllBooks.TabIndex = 1;
             // 
-            // btnAddNew
+            // btnAddNewBook
             // 
-            this.btnAddNew.Location = new System.Drawing.Point(12, 327);
-            this.btnAddNew.Name = "btnAddNew";
-            this.btnAddNew.Size = new System.Drawing.Size(167, 29);
-            this.btnAddNew.TabIndex = 2;
-            this.btnAddNew.Text = "Dodaj pozycję";
-            this.btnAddNew.UseVisualStyleBackColor = true;
-            this.btnAddNew.Click += new System.EventHandler(this.btnAddNew_Click);
+            this.btnAddNewBook.Location = new System.Drawing.Point(12, 327);
+            this.btnAddNewBook.Name = "btnAddNewBook";
+            this.btnAddNewBook.Size = new System.Drawing.Size(198, 29);
+            this.btnAddNewBook.TabIndex = 2;
+            this.btnAddNewBook.Text = "Dodaj nową książkę";
+            this.btnAddNewBook.UseVisualStyleBackColor = true;
+            this.btnAddNewBook.Click += new System.EventHandler(this.btnAddNew_Click);
             // 
             // btnModify
             // 
@@ -114,14 +116,58 @@
             this.btnRemove.Text = "Usuń pozycję";
             this.btnRemove.UseVisualStyleBackColor = true;
             // 
+            // btnAddNewSeries
+            // 
+            this.btnAddNewSeries.Location = new System.Drawing.Point(828, 327);
+            this.btnAddNewSeries.Name = "btnAddNewSeries";
+            this.btnAddNewSeries.Size = new System.Drawing.Size(198, 29);
+            this.btnAddNewSeries.TabIndex = 5;
+            this.btnAddNewSeries.Text = "Dodaj nową serię";
+            this.btnAddNewSeries.UseVisualStyleBackColor = true;
+            this.btnAddNewSeries.Click += new System.EventHandler(this.btnAddNewSeries_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(624, 327);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(198, 29);
+            this.button2.TabIndex = 6;
+            this.button2.Text = "Dodaj nowe wydawnictwo";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // btnAddNewTranslator
+            // 
+            this.btnAddNewTranslator.Location = new System.Drawing.Point(420, 327);
+            this.btnAddNewTranslator.Name = "btnAddNewTranslator";
+            this.btnAddNewTranslator.Size = new System.Drawing.Size(198, 29);
+            this.btnAddNewTranslator.TabIndex = 7;
+            this.btnAddNewTranslator.Text = "Dodaj nowego tłumacza";
+            this.btnAddNewTranslator.UseVisualStyleBackColor = true;
+            this.btnAddNewTranslator.Click += new System.EventHandler(this.btnAddNewTranslator_Click);
+            // 
+            // btnAddNewAuthor
+            // 
+            this.btnAddNewAuthor.Location = new System.Drawing.Point(216, 327);
+            this.btnAddNewAuthor.Name = "btnAddNewAuthor";
+            this.btnAddNewAuthor.Size = new System.Drawing.Size(198, 29);
+            this.btnAddNewAuthor.TabIndex = 8;
+            this.btnAddNewAuthor.Text = "Dodaj nowego autora";
+            this.btnAddNewAuthor.UseVisualStyleBackColor = true;
+            this.btnAddNewAuthor.Click += new System.EventHandler(this.btnAddNewAuthor_Click);
+            // 
             // frmLibrary
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1429, 450);
+            this.Controls.Add(this.btnAddNewAuthor);
+            this.Controls.Add(this.btnAddNewTranslator);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btnAddNewSeries);
             this.Controls.Add(this.btnRemove);
             this.Controls.Add(this.btnModify);
-            this.Controls.Add(this.btnAddNew);
+            this.Controls.Add(this.btnAddNewBook);
             this.Controls.Add(this.dgvAllBooks);
             this.Controls.Add(this.msMenu);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -141,12 +187,14 @@
         private MenuStrip msMenu;
         private ToolStripMenuItem menuToolStripMenuItem;
         private ToolStripMenuItem zamknijToolStripMenuItem;
-        private SaveFileDialog sfdCreateDB;
-        private OpenFileDialog ofdOpenDB;
         private ToolStripMenuItem oProgramieToolStripMenuItem;
         private DataGridView dgvAllBooks;
-        private Button btnAddNew;
+        private Button btnAddNewBook;
         private Button btnModify;
         private Button btnRemove;
+        private Button btnAddNewSeries;
+        private Button button2;
+        private Button btnAddNewTranslator;
+        private Button btnAddNewAuthor;
     }
 }
