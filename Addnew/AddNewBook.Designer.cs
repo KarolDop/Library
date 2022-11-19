@@ -182,6 +182,7 @@
             this.cebHaveRead.Size = new System.Drawing.Size(18, 17);
             this.cebHaveRead.TabIndex = 9;
             this.cebHaveRead.UseVisualStyleBackColor = true;
+            this.cebHaveRead.CheckedChanged += new System.EventHandler(this.cebHaveRead_CheckedChanged);
             // 
             // brnSaveNew
             // 

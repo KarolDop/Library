@@ -3,6 +3,7 @@
     public partial class frmAddNew : Form
     {
         LibraryContex dbContex;
+        HaveRead hr;
 
         public frmAddNew()
         {
@@ -14,20 +15,24 @@
             dbContex = new LibraryContex();
 
             var publisher = dbContex.Publishers.ToList();
-            cobPublisher.DataSource = publisher;
             cobPublisher.DisplayMember = "PublisherName";
+            cobPublisher.ValueMember = "Id";
+            cobPublisher.DataSource = publisher;
 
             var series = dbContex.Series.ToList();
-            cobSeries.DataSource = series;
             cobSeries.DisplayMember = "SeriesName";
+            cobSeries.ValueMember = "Id";
+            cobSeries.DataSource = series;
 
             var authors = dbContex.Authors.ToList();
-            cobAuthor.DataSource = authors;
             cobAuthor.DisplayMember = "FullName";
+            cobAuthor.ValueMember = "Id";
+            cobAuthor.DataSource = authors;
 
             var translators = dbContex.Translators.ToList();
-            cobTranslator.DataSource = translators;
             cobTranslator.DisplayMember = "FullName";
+            cobTranslator.ValueMember = "Id";
+            cobTranslator.DataSource = translators;
 
         }
 
@@ -60,6 +65,18 @@
             }
         }
 
+        private void cebHaveRead_CheckedChanged(object sender, EventArgs e)
+        {
+            if(cebHaveRead.Checked == false)
+            {
+                hr = HaveRead.No;
+            }
+            else
+            {
+                hr = HaveRead.Yes;
+            }
+        }
+
         private void btnCancelNew_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -70,7 +87,7 @@
             var place = "";
             var title = "";
             var publishedYear = 0;
-            var ISBN = "";
+            var isbn = "";
             var comment = "";
             var result = DialogResult.OK;
             var isAdd = true;
@@ -103,6 +120,82 @@
                 result = CustomMessageBox.YesOrNoMessegeBoxWarning(emptyFieldMessage +
                     "Czy Chcesz spróbować raz jeszcze?", "Błąd");
                 isAdd = false;
+            }
+            else
+            {
+                place = txtPlace.Text;
+                title = txtTitle.Text;
+                publishedYear = Int32.Parse(txtPublishedYear.Text);
+                isbn = mtxtISBN.Text;
+                comment = txtComment.Text;
+;
+                Int32.TryParse(cobPublisher.SelectedValue.ToString(), out int publisherID);
+                Int32.TryParse(cobSeries.SelectedValue.ToString(), out int seriesID);
+                Int32.TryParse(cobAuthor.SelectedValue.ToString(), out int authorID);
+                Int32.TryParse(cobTranslator.SelectedValue.ToString(), out int translatorID);
+
+
+                try
+                {
+                    var book = new Book()
+                    {
+                        BookName = title,
+                        PublishYear = publishedYear,
+                        PublisherID = publisherID,
+                        HaveRead = hr,
+                        SeriesID = seriesID,
+                        Place = place
+                    };
+                    dbContex.Books.Add(book);
+
+
+                    var remark = new Remarks()
+                    {
+                        Remark = comment,
+                        Book = book,
+                    };
+                    dbContex.Remarks.Add(remark);
+
+                    var authorBook = new AuthorBook()
+                    {
+                        Book = book,
+                        AuthorId = authorID,
+                    };
+                    dbContex.AuthorBook.Add(authorBook);
+
+
+                    if (chbTranslator.Checked == true)
+                    {
+                        var translatorBook = new TranslatorBooks()
+                        {
+                            Book = book,
+                            TranslatorId = translatorID,
+                        };
+                        dbContex.TranslatorsBook.Add(translatorBook);
+                    }
+
+                    var isbnNo = new IsbnNumbers()
+                    {
+                        ISBN = isbn,
+                        Book = book,
+                    };
+                    dbContex.IsbnNumbers.Add(isbnNo);
+                    dbContex.SaveChanges();
+                }
+                catch(Exception ex)
+                {
+                    result = CustomMessageBox.YesOrNoMessegeBoxWarning(ex.Message + "Czy chcesz spróbować raz jeszcze?",
+                        "Bład");
+                    isAdd = false;
+                }
+                finally
+                {
+                    txtPlace.Clear();
+                    txtTitle.Clear();
+                    txtPublishedYear.Clear();
+                    mtxtISBN.Clear();
+                    txtComment.Clear();
+                }
             }
 
         }

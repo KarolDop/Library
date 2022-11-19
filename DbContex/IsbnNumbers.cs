@@ -2,7 +2,7 @@
 
 namespace Library
 {
-    public class IsbnNumber
+    public class IsbnNumbers
     {
         public string ISBN { get; set; }
 

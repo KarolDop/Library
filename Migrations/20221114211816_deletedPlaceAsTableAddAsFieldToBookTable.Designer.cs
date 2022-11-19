@@ -4,6 +4,7 @@ using Library;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Library.Migrations
 {
     [DbContext(typeof(LibraryContex))]
-    partial class LibraryContexModelSnapshot : ModelSnapshot
+    [Migration("20221114211816_deletedPlaceAsTableAddAsFieldToBookTable")]
+    partial class deletedPlaceAsTableAddAsFieldToBookTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -107,7 +109,7 @@ namespace Library.Migrations
                     b.ToTable("Books");
                 });
 
-            modelBuilder.Entity("Library.IsbnNumbers", b =>
+            modelBuilder.Entity("Library.IsbnNumber", b =>
                 {
                     b.Property<string>("ISBN")
                         .HasColumnType("nvarchar(450)");
@@ -120,7 +122,7 @@ namespace Library.Migrations
                     b.HasIndex("BookID")
                         .IsUnique();
 
-                    b.ToTable("IsbnNumbers");
+                    b.ToTable("IsbnNumber");
                 });
 
             modelBuilder.Entity("Library.Publisher", b =>
@@ -140,7 +142,7 @@ namespace Library.Migrations
                     b.ToTable("Publishers");
                 });
 
-            modelBuilder.Entity("Library.Remarks", b =>
+            modelBuilder.Entity("Library.Remark", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -151,7 +153,7 @@ namespace Library.Migrations
                     b.Property<int>("BookID")
                         .HasColumnType("int");
 
-                    b.Property<string>("Remark")
+                    b.Property<string>("Remarks")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -204,7 +206,7 @@ namespace Library.Migrations
                     b.ToTable("Translators");
                 });
 
-            modelBuilder.Entity("Library.TranslatorBooks", b =>
+            modelBuilder.Entity("Library.TranslatorBook", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -224,7 +226,7 @@ namespace Library.Migrations
 
                     b.HasIndex("TranslatorId");
 
-                    b.ToTable("TranslatorsBook");
+                    b.ToTable("TranslatorBook");
                 });
 
             modelBuilder.Entity("Library.AuthorBook", b =>
@@ -263,18 +265,18 @@ namespace Library.Migrations
                     b.Navigation("Serie");
                 });
 
-            modelBuilder.Entity("Library.IsbnNumbers", b =>
+            modelBuilder.Entity("Library.IsbnNumber", b =>
                 {
                     b.HasOne("Library.Book", "Book")
                         .WithOne("Isbn")
-                        .HasForeignKey("Library.IsbnNumbers", "BookID")
+                        .HasForeignKey("Library.IsbnNumber", "BookID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Book");
                 });
 
-            modelBuilder.Entity("Library.Remarks", b =>
+            modelBuilder.Entity("Library.Remark", b =>
                 {
                     b.HasOne("Library.Book", "Book")
                         .WithMany("Remarks")
@@ -285,7 +287,7 @@ namespace Library.Migrations
                     b.Navigation("Book");
                 });
 
-            modelBuilder.Entity("Library.TranslatorBooks", b =>
+            modelBuilder.Entity("Library.TranslatorBook", b =>
                 {
                     b.HasOne("Library.Book", "Book")
                         .WithMany()

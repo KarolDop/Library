@@ -1,6 +1,6 @@
 ﻿namespace Library
 {
-    public class TranslatorBook
+    public class TranslatorBooks
     {
         public int Id { get; set; }
 

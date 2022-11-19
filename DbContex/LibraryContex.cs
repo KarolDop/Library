@@ -7,10 +7,12 @@ namespace Library
         public DbSet<Author> Authors { get; set; }
         public DbSet<Translator> Translators { get; set; }
         public DbSet<Publisher> Publishers { get; set; }
-        public DbSet<Place> Places { get; set; }
         public DbSet<Serie> Series { get; set; }
-        public DbSet<Remark> Remarks { get; set; }
+        public DbSet<Remarks> Remarks { get; set; }
         public DbSet<Book> Books { get; set; }
+        public DbSet<AuthorBook> AuthorBook { get; set; }
+        public DbSet<TranslatorBooks> TranslatorsBook { get; set; }
+        public DbSet<IsbnNumbers> IsbnNumbers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -19,13 +21,13 @@ namespace Library
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<IsbnNumber>(isbn =>
+            modelBuilder.Entity<IsbnNumbers>(isbn =>
             {
                 isbn.HasKey(i => i.ISBN);
 
                 isbn.HasOne(b => b.Book)
                 .WithOne(i => i.Isbn)
-                .HasForeignKey<IsbnNumber>(i => i.BookID);
+                .HasForeignKey<IsbnNumbers>(i => i.BookID);
             });
 
             modelBuilder.Entity<Book>(book =>
@@ -46,7 +48,7 @@ namespace Library
 
                 book.HasMany(b => b.Translators)
                 .WithMany(t => t.Books)
-                .UsingEntity<TranslatorBook>(
+                .UsingEntity<TranslatorBooks>(
                     t => t.HasOne(tb => tb.Translator)
                     .WithMany()
                     .HasForeignKey(tb => tb.TranslatorId),
@@ -69,10 +71,6 @@ namespace Library
                 book.HasOne(b => b.Publisher)
                 .WithMany(pu => pu.Books)
                 .HasForeignKey(b => b.PublisherID);
-
-                book.HasOne(b => b.Place)
-                .WithMany(pl => pl.Books)
-                .HasForeignKey(b => b.PlaceId);
             });
         }
     }
