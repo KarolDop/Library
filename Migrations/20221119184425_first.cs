@@ -15,35 +15,12 @@ namespace Library.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     AuthorFirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AuthorLastName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    AuthorLastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Authors", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "IsbnNumber",
-                columns: table => new
-                {
-                    ISBN = table.Column<string>(type: "nvarchar(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_IsbnNumber", x => x.ISBN);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Places",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PublicationPlace = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Places", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -79,7 +56,8 @@ namespace Library.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TranslatorFirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TranslatorLastName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    TranslatorLastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -95,37 +73,18 @@ namespace Library.Migrations
                     BookName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PublishYear = table.Column<int>(type: "int", nullable: false),
                     PublisherID = table.Column<int>(type: "int", nullable: false),
-                    PlaceId = table.Column<int>(type: "int", nullable: false),
-                    SeriesID = table.Column<int>(type: "int", nullable: true),
-                    HaveReak = table.Column<int>(type: "int", nullable: false),
-                    IsbnID = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    Place = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    HaveRead = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Books", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Books_IsbnNumber_IsbnID",
-                        column: x => x.IsbnID,
-                        principalTable: "IsbnNumber",
-                        principalColumn: "ISBN",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Books_Places_PlaceId",
-                        column: x => x.PlaceId,
-                        principalTable: "Places",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Books_Publishers_PublisherID",
                         column: x => x.PublisherID,
                         principalTable: "Publishers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Books_Series_SeriesID",
-                        column: x => x.SeriesID,
-                        principalTable: "Series",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -155,12 +114,30 @@ namespace Library.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "IsbnNumbers",
+                columns: table => new
+                {
+                    ISBN = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    BookID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_IsbnNumbers", x => x.ISBN);
+                    table.ForeignKey(
+                        name: "FK_IsbnNumbers_Books_BookID",
+                        column: x => x.BookID,
+                        principalTable: "Books",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Remarks",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Remarks = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Comment = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BookID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -175,7 +152,33 @@ namespace Library.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TranslatorBook",
+                name: "SerieBooks",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BookId = table.Column<int>(type: "int", nullable: false),
+                    SerieId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SerieBooks", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SerieBooks_Books_BookId",
+                        column: x => x.BookId,
+                        principalTable: "Books",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SerieBooks_Series_SerieId",
+                        column: x => x.SerieId,
+                        principalTable: "Series",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TranslatorsBook",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -185,15 +188,15 @@ namespace Library.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TranslatorBook", x => x.Id);
+                    table.PrimaryKey("PK_TranslatorsBook", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TranslatorBook_Books_BookId",
+                        name: "FK_TranslatorsBook_Books_BookId",
                         column: x => x.BookId,
                         principalTable: "Books",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TranslatorBook_Translators_TranslatorId",
+                        name: "FK_TranslatorsBook_Translators_TranslatorId",
                         column: x => x.TranslatorId,
                         principalTable: "Translators",
                         principalColumn: "Id",
@@ -211,25 +214,15 @@ namespace Library.Migrations
                 column: "BookId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Books_IsbnID",
-                table: "Books",
-                column: "IsbnID",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Books_PlaceId",
-                table: "Books",
-                column: "PlaceId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Books_PublisherID",
                 table: "Books",
                 column: "PublisherID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Books_SeriesID",
-                table: "Books",
-                column: "SeriesID");
+                name: "IX_IsbnNumbers_BookID",
+                table: "IsbnNumbers",
+                column: "BookID",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Remarks_BookID",
@@ -237,13 +230,23 @@ namespace Library.Migrations
                 column: "BookID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TranslatorBook_BookId",
-                table: "TranslatorBook",
+                name: "IX_SerieBooks_BookId",
+                table: "SerieBooks",
                 column: "BookId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TranslatorBook_TranslatorId",
-                table: "TranslatorBook",
+                name: "IX_SerieBooks_SerieId",
+                table: "SerieBooks",
+                column: "SerieId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TranslatorsBook_BookId",
+                table: "TranslatorsBook",
+                column: "BookId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TranslatorsBook_TranslatorId",
+                table: "TranslatorsBook",
                 column: "TranslatorId");
         }
 
@@ -253,13 +256,22 @@ namespace Library.Migrations
                 name: "AuthorBook");
 
             migrationBuilder.DropTable(
+                name: "IsbnNumbers");
+
+            migrationBuilder.DropTable(
                 name: "Remarks");
 
             migrationBuilder.DropTable(
-                name: "TranslatorBook");
+                name: "SerieBooks");
+
+            migrationBuilder.DropTable(
+                name: "TranslatorsBook");
 
             migrationBuilder.DropTable(
                 name: "Authors");
+
+            migrationBuilder.DropTable(
+                name: "Series");
 
             migrationBuilder.DropTable(
                 name: "Books");
@@ -268,16 +280,7 @@ namespace Library.Migrations
                 name: "Translators");
 
             migrationBuilder.DropTable(
-                name: "IsbnNumber");
-
-            migrationBuilder.DropTable(
-                name: "Places");
-
-            migrationBuilder.DropTable(
                 name: "Publishers");
-
-            migrationBuilder.DropTable(
-                name: "Series");
         }
     }
 }

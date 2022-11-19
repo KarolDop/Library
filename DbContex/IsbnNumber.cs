@@ -1,8 +1,6 @@
-﻿//us
-
-namespace Library
+﻿namespace Library
 {
-    public class IsbnNumbers
+    public class IsbnNumber
     {
         public string ISBN { get; set; }
 

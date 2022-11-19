@@ -8,11 +8,12 @@ namespace Library
         public DbSet<Translator> Translators { get; set; }
         public DbSet<Publisher> Publishers { get; set; }
         public DbSet<Serie> Series { get; set; }
-        public DbSet<Remarks> Remarks { get; set; }
+        public DbSet<Remark> Remarks { get; set; }
         public DbSet<Book> Books { get; set; }
         public DbSet<AuthorBook> AuthorBook { get; set; }
         public DbSet<TranslatorBooks> TranslatorsBook { get; set; }
-        public DbSet<IsbnNumbers> IsbnNumbers { get; set; }
+        public DbSet<IsbnNumber> IsbnNumbers { get; set; }
+        public DbSet<SerieBook> SerieBooks { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -21,13 +22,13 @@ namespace Library
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<IsbnNumbers>(isbn =>
+            modelBuilder.Entity<IsbnNumber>(isbn =>
             {
                 isbn.HasKey(i => i.ISBN);
 
                 isbn.HasOne(b => b.Book)
                 .WithOne(i => i.Isbn)
-                .HasForeignKey<IsbnNumbers>(i => i.BookID);
+                .HasForeignKey<IsbnNumber>(i => i.BookID);
             });
 
             modelBuilder.Entity<Book>(book =>
@@ -60,13 +61,23 @@ namespace Library
                     tb => tb.HasKey(tb => tb.Id)
                     );
 
+                book.HasMany(b => b.Serie)
+                .WithMany(s => s.Books)
+                .UsingEntity<SerieBook>(
+                    s => s.HasOne(sb => sb.Serie)
+                    .WithMany()
+                    .HasForeignKey(sb => sb.SerieId),
+
+                    b => b.HasOne(sb => sb.Book)
+                    .WithMany()
+                    .HasForeignKey(sb => sb.BookId),
+
+                    sb => sb.HasKey(sb => sb.Id)
+                    );
+
                 book.HasMany(b => b.Remarks)
                 .WithOne(r => r.Book)
                 .HasForeignKey(r => r.BookID);
-
-                book.HasOne(b => b.Serie)
-                .WithMany(s => s.Books)
-                .HasForeignKey(b => b.SeriesID);
 
                 book.HasOne(b => b.Publisher)
                 .WithMany(pu => pu.Books)

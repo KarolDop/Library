@@ -57,7 +57,7 @@
                 }
                 catch (Exception ex)
                 {
-                    result = CustomMessageBox.YesOrNoMessegeBoxWarning(ex.Message + "Czy chcesz spróbować raz jeszcze?",
+                    result = CustomMessageBox.YesOrNoMessegeBoxWarning(ex.Message + "\nCzy chcesz spróbować raz jeszcze?",
                         "Bład");
                     isAdd = false;
                 }
@@ -77,6 +77,10 @@
             if (result == DialogResult.No)
             {
                 this.Close();
+            }
+            else
+            {
+                txtFirstName.Focus();
             }
         }
 

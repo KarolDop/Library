@@ -13,12 +13,12 @@
 
         public string Place { get; set; }
 
-        public Serie Serie { get; set; }
-        public int? SeriesID { get; set; }
+        public IList<Serie>? Serie { get; set; }
+        //public int? SeriesID { get; set; }
 
-        public IList<Remarks>? Remarks { get; set; }
+        public IList<Remark>? Remarks { get; set; }
         public HaveRead HaveRead { get; set; }
 
-        public IsbnNumbers Isbn { get; set; }
+        public IsbnNumber Isbn { get; set; }
     }
 }

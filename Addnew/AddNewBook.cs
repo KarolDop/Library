@@ -43,7 +43,7 @@
 
         private void chbTranslator_CheckedChanged(object sender, EventArgs e)
         {
-            if(chbTranslator.Checked == false)
+            if (chbTranslator.Checked == false)
             {
                 cobTranslator.Enabled = false;
             }
@@ -55,7 +55,7 @@
 
         private void chbisbn13_CheckedChanged(object sender, EventArgs e)
         {
-            if(chbisbn13.Checked == false)
+            if (chbIsbn13.Checked == false)
             {
                 mtxtISBN.Mask = "A-AAA-AAAAA-A";
             }
@@ -65,15 +65,27 @@
             }
         }
 
-        private void cebHaveRead_CheckedChanged(object sender, EventArgs e)
+        private void chbHaveRead_CheckedChanged(object sender, EventArgs e)
         {
-            if(cebHaveRead.Checked == false)
+            if (chbHaveRead.Checked == false)
             {
                 hr = HaveRead.No;
             }
             else
             {
                 hr = HaveRead.Yes;
+            }
+        }
+
+        private void chbSeries_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chbSeries.Checked == false)
+            {
+                cobSeries.Enabled = false;
+            }
+            else
+            {
+                cobSeries.Enabled = true;
             }
         }
 
@@ -92,9 +104,9 @@
             var result = DialogResult.OK;
             var isAdd = true;
             var emptyFieldCheck = new bool[4];
-            var emptyFieldString = new string[4]; 
+            var emptyFieldString = new string[4];
             var emptyFieldMessage = "";
-            var emptyAnyField = false; 
+            var emptyAnyField = false;
 
             emptyFieldCheck[0] = String.IsNullOrEmpty(txtPlace.Text);
             emptyFieldCheck[1] = String.IsNullOrEmpty(txtTitle.Text);
@@ -106,16 +118,16 @@
             emptyFieldString[2] = "Pole rok nie może być puste\n";
             emptyFieldString[3] = "Pole ISBN nie może być puste\n";
 
-            for(int i = 0; i < 4; i++)
+            for (int i = 0; i < 4; i++)
             {
-                if(emptyFieldCheck[i])
+                if (emptyFieldCheck[i])
                 {
                     emptyFieldMessage += emptyFieldString[i];
                     emptyAnyField = true;
                 }
             }
 
-            if(emptyAnyField)
+            if (emptyAnyField)
             {
                 result = CustomMessageBox.YesOrNoMessegeBoxWarning(emptyFieldMessage +
                     "Czy Chcesz spróbować raz jeszcze?", "Błąd");
@@ -128,7 +140,7 @@
                 publishedYear = Int32.Parse(txtPublishedYear.Text);
                 isbn = mtxtISBN.Text;
                 comment = txtComment.Text;
-;
+                ;
                 Int32.TryParse(cobPublisher.SelectedValue.ToString(), out int publisherID);
                 Int32.TryParse(cobSeries.SelectedValue.ToString(), out int seriesID);
                 Int32.TryParse(cobAuthor.SelectedValue.ToString(), out int authorID);
@@ -143,18 +155,19 @@
                         PublishYear = publishedYear,
                         PublisherID = publisherID,
                         HaveRead = hr,
-                        SeriesID = seriesID,
                         Place = place
                     };
                     dbContex.Books.Add(book);
 
-
-                    var remark = new Remarks()
+                    if (!String.IsNullOrEmpty(comment))
                     {
-                        Remark = comment,
-                        Book = book,
-                    };
-                    dbContex.Remarks.Add(remark);
+                        var remark = new Remark()
+                        {
+                            Comment = comment,
+                            Book = book,
+                        };
+                        dbContex.Remarks.Add(remark);
+                    }
 
                     var authorBook = new AuthorBook()
                     {
@@ -174,7 +187,16 @@
                         dbContex.TranslatorsBook.Add(translatorBook);
                     }
 
-                    var isbnNo = new IsbnNumbers()
+                    if (chbSeries.Checked == true)
+                    {
+                        var serieBook = new SerieBook()
+                        {
+                            Book = book,
+                            SerieId = seriesID
+                        };
+                    }
+
+                    var isbnNo = new IsbnNumber()
                     {
                         ISBN = isbn,
                         Book = book,
@@ -182,9 +204,9 @@
                     dbContex.IsbnNumbers.Add(isbnNo);
                     dbContex.SaveChanges();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-                    result = CustomMessageBox.YesOrNoMessegeBoxWarning(ex.Message + "Czy chcesz spróbować raz jeszcze?",
+                    result = CustomMessageBox.YesOrNoMessegeBoxWarning(ex.Message + "\nCzy chcesz spróbować raz jeszcze?",
                         "Bład");
                     isAdd = false;
                 }
@@ -197,7 +219,28 @@
                     txtComment.Clear();
                 }
             }
+            if (isAdd)
+            {
+                result = CustomMessageBox.YesOrNoMessegeBoxInformation("Dodano nową książkę\nCzy chcesz dodać kolejną?",
+                    "Sukces!");
+            }
 
+            if (result == DialogResult.No)
+            {
+                this.Close();
+            }
+            else
+            {
+                cobAuthor.Focus();
+            }
+        }
+
+        private void goNext(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                this.SelectNextControl((Control)sender, true, true, true, true);
+            }
         }
     }
 }

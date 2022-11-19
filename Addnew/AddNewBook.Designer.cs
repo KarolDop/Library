@@ -42,7 +42,7 @@
             this.txtPublishedYear = new System.Windows.Forms.TextBox();
             this.txtComment = new System.Windows.Forms.TextBox();
             this.chbTranslator = new System.Windows.Forms.CheckBox();
-            this.cebHaveRead = new System.Windows.Forms.CheckBox();
+            this.chbHaveRead = new System.Windows.Forms.CheckBox();
             this.brnSaveNew = new System.Windows.Forms.Button();
             this.btnCancelNew = new System.Windows.Forms.Button();
             this.cobAuthor = new System.Windows.Forms.ComboBox();
@@ -51,7 +51,8 @@
             this.cobSeries = new System.Windows.Forms.ComboBox();
             this.labISBN = new System.Windows.Forms.Label();
             this.mtxtISBN = new System.Windows.Forms.MaskedTextBox();
-            this.chbisbn13 = new System.Windows.Forms.CheckBox();
+            this.chbIsbn13 = new System.Windows.Forms.CheckBox();
+            this.chbSeries = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // labAuthor
@@ -141,6 +142,7 @@
             this.txtPlace.Name = "txtPlace";
             this.txtPlace.Size = new System.Drawing.Size(278, 27);
             this.txtPlace.TabIndex = 4;
+            this.txtPlace.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.goNext);
             // 
             // txtTitle
             // 
@@ -148,6 +150,7 @@
             this.txtTitle.Name = "txtTitle";
             this.txtTitle.Size = new System.Drawing.Size(278, 27);
             this.txtTitle.TabIndex = 6;
+            this.txtTitle.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.goNext);
             // 
             // txtPublishedYear
             // 
@@ -155,6 +158,7 @@
             this.txtPublishedYear.Name = "txtPublishedYear";
             this.txtPublishedYear.Size = new System.Drawing.Size(278, 27);
             this.txtPublishedYear.TabIndex = 7;
+            this.txtPublishedYear.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.goNext);
             // 
             // txtComment
             // 
@@ -162,27 +166,30 @@
             this.txtComment.Name = "txtComment";
             this.txtComment.Size = new System.Drawing.Size(278, 27);
             this.txtComment.TabIndex = 10;
+            this.txtComment.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.goNext);
             // 
             // chbTranslator
             // 
             this.chbTranslator.AutoSize = true;
-            this.chbTranslator.Location = new System.Drawing.Point(457, 52);
+            this.chbTranslator.Location = new System.Drawing.Point(457, 57);
             this.chbTranslator.Name = "chbTranslator";
             this.chbTranslator.Size = new System.Drawing.Size(121, 24);
             this.chbTranslator.TabIndex = 13;
             this.chbTranslator.Text = "Tłumaczenie?";
             this.chbTranslator.UseVisualStyleBackColor = true;
             this.chbTranslator.CheckedChanged += new System.EventHandler(this.chbTranslator_CheckedChanged);
+            this.chbTranslator.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.goNext);
             // 
-            // cebHaveRead
+            // chbHaveRead
             // 
-            this.cebHaveRead.AutoSize = true;
-            this.cebHaveRead.Location = new System.Drawing.Point(173, 290);
-            this.cebHaveRead.Name = "cebHaveRead";
-            this.cebHaveRead.Size = new System.Drawing.Size(18, 17);
-            this.cebHaveRead.TabIndex = 9;
-            this.cebHaveRead.UseVisualStyleBackColor = true;
-            this.cebHaveRead.CheckedChanged += new System.EventHandler(this.cebHaveRead_CheckedChanged);
+            this.chbHaveRead.AutoSize = true;
+            this.chbHaveRead.Location = new System.Drawing.Point(173, 290);
+            this.chbHaveRead.Name = "chbHaveRead";
+            this.chbHaveRead.Size = new System.Drawing.Size(18, 17);
+            this.chbHaveRead.TabIndex = 9;
+            this.chbHaveRead.UseVisualStyleBackColor = true;
+            this.chbHaveRead.CheckedChanged += new System.EventHandler(this.chbHaveRead_CheckedChanged);
+            this.chbHaveRead.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.goNext);
             // 
             // brnSaveNew
             // 
@@ -211,6 +218,7 @@
             this.cobAuthor.Name = "cobAuthor";
             this.cobAuthor.Size = new System.Drawing.Size(278, 28);
             this.cobAuthor.TabIndex = 1;
+            this.cobAuthor.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.goNext);
             // 
             // cobTranslator
             // 
@@ -220,6 +228,7 @@
             this.cobTranslator.Name = "cobTranslator";
             this.cobTranslator.Size = new System.Drawing.Size(278, 28);
             this.cobTranslator.TabIndex = 2;
+            this.cobTranslator.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.goNext);
             // 
             // cobPublisher
             // 
@@ -228,14 +237,17 @@
             this.cobPublisher.Name = "cobPublisher";
             this.cobPublisher.Size = new System.Drawing.Size(278, 28);
             this.cobPublisher.TabIndex = 3;
+            this.cobPublisher.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.goNext);
             // 
             // cobSeries
             // 
+            this.cobSeries.Enabled = false;
             this.cobSeries.FormattingEnabled = true;
             this.cobSeries.Location = new System.Drawing.Point(173, 154);
             this.cobSeries.Name = "cobSeries";
             this.cobSeries.Size = new System.Drawing.Size(278, 28);
             this.cobSeries.TabIndex = 5;
+            this.cobSeries.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.goNext);
             // 
             // labISBN
             // 
@@ -253,17 +265,31 @@
             this.mtxtISBN.Name = "mtxtISBN";
             this.mtxtISBN.Size = new System.Drawing.Size(278, 27);
             this.mtxtISBN.TabIndex = 8;
+            this.mtxtISBN.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.goNext);
             // 
-            // chbisbn13
+            // chbIsbn13
             // 
-            this.chbisbn13.AutoSize = true;
-            this.chbisbn13.Location = new System.Drawing.Point(457, 253);
-            this.chbisbn13.Name = "chbisbn13";
-            this.chbisbn13.Size = new System.Drawing.Size(86, 24);
-            this.chbisbn13.TabIndex = 14;
-            this.chbisbn13.Text = "ISBN13?";
-            this.chbisbn13.UseVisualStyleBackColor = true;
-            this.chbisbn13.CheckedChanged += new System.EventHandler(this.chbisbn13_CheckedChanged);
+            this.chbIsbn13.AutoSize = true;
+            this.chbIsbn13.Location = new System.Drawing.Point(457, 257);
+            this.chbIsbn13.Name = "chbIsbn13";
+            this.chbIsbn13.Size = new System.Drawing.Size(86, 24);
+            this.chbIsbn13.TabIndex = 15;
+            this.chbIsbn13.Text = "ISBN13?";
+            this.chbIsbn13.UseVisualStyleBackColor = true;
+            this.chbIsbn13.CheckedChanged += new System.EventHandler(this.chbisbn13_CheckedChanged);
+            this.chbIsbn13.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.goNext);
+            // 
+            // chbSeries
+            // 
+            this.chbSeries.AutoSize = true;
+            this.chbSeries.Location = new System.Drawing.Point(457, 158);
+            this.chbSeries.Name = "chbSeries";
+            this.chbSeries.Size = new System.Drawing.Size(71, 24);
+            this.chbSeries.TabIndex = 14;
+            this.chbSeries.Text = "Seria?";
+            this.chbSeries.UseVisualStyleBackColor = true;
+            this.chbSeries.CheckedChanged += new System.EventHandler(this.chbSeries_CheckedChanged);
+            this.chbSeries.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.goNext);
             // 
             // frmAddNew
             // 
@@ -272,7 +298,8 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(584, 425);
             this.ControlBox = false;
-            this.Controls.Add(this.chbisbn13);
+            this.Controls.Add(this.chbSeries);
+            this.Controls.Add(this.chbIsbn13);
             this.Controls.Add(this.mtxtISBN);
             this.Controls.Add(this.labISBN);
             this.Controls.Add(this.cobSeries);
@@ -281,7 +308,7 @@
             this.Controls.Add(this.cobAuthor);
             this.Controls.Add(this.btnCancelNew);
             this.Controls.Add(this.brnSaveNew);
-            this.Controls.Add(this.cebHaveRead);
+            this.Controls.Add(this.chbHaveRead);
             this.Controls.Add(this.chbTranslator);
             this.Controls.Add(this.txtComment);
             this.Controls.Add(this.txtPublishedYear);
@@ -324,7 +351,7 @@
         private TextBox txtPublishedYear;
         private TextBox txtComment;
         private CheckBox chbTranslator;
-        private CheckBox cebHaveRead;
+        private CheckBox chbHaveRead;
         private Button brnSaveNew;
         private Button btnCancelNew;
         private ComboBox cobAuthor;
@@ -334,7 +361,8 @@
         private ComboBox cobSeries;
         private Label labISBN;
         private MaskedTextBox mtxtISBN;
-        private CheckBox chbisbn13;
+        private CheckBox chbIsbn13;
         private ComboBox cobTranslator;
+        private CheckBox chbSeries;
     }
 }
