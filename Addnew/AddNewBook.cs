@@ -1,4 +1,6 @@
-﻿namespace Library
+﻿using Library.SupportedClasses;
+
+namespace Library
 {
     public partial class frmAddNew : Form
     {
@@ -96,56 +98,47 @@
 
         private void brnSaveNew_Click(object sender, EventArgs e)
         {
-            var place = "";
-            var title = "";
-            var publishedYear = 0;
-            var isbn = "";
-            var comment = "";
+            var place = txtPlace.Text;
+            var title = txtTitle.Text;
+            Int32.TryParse(txtPublishedYear.Text, out int publishedYear);
+            var isbn = mtxtISBN.Text.Replace(" ", String.Empty);
+            var comment = txtComment.Text;
             var result = DialogResult.OK;
             var isAdd = true;
             var emptyFieldCheck = new bool[4];
             var emptyFieldString = new string[4];
-            var emptyFieldMessage = "";
-            var emptyAnyField = false;
 
             emptyFieldCheck[0] = String.IsNullOrEmpty(txtPlace.Text);
             emptyFieldCheck[1] = String.IsNullOrEmpty(txtTitle.Text);
             emptyFieldCheck[2] = String.IsNullOrEmpty(txtPublishedYear.Text);
-            emptyFieldCheck[3] = String.IsNullOrEmpty(mtxtISBN.Text);
+            if (chbIsbn13.Checked == false)
+            {
+                emptyFieldCheck[3] = (isbn.Length != 13);
+            }
+            else
+            {
+                emptyFieldCheck[3] = (isbn.Length != 17);
+            }
 
             emptyFieldString[0] = "Pole miejsce nie może być puste\n";
             emptyFieldString[1] = "Pole tytuł nie może być puste\n";
             emptyFieldString[2] = "Pole rok nie może być puste\n";
             emptyFieldString[3] = "Pole ISBN nie może być puste\n";
 
-            for (int i = 0; i < 4; i++)
-            {
-                if (emptyFieldCheck[i])
-                {
-                    emptyFieldMessage += emptyFieldString[i];
-                    emptyAnyField = true;
-                }
-            }
+            var check = EmptyField.EmptyFieldMessage(emptyFieldString, emptyFieldCheck);
 
-            if (emptyAnyField)
+            if (check.Item2)
             {
-                result = CustomMessageBox.YesOrNoMessegeBoxWarning(emptyFieldMessage +
+                result = CustomMessageBox.YesOrNoMessegeBoxWarning(check.Item1 +
                     "Czy Chcesz spróbować raz jeszcze?", "Błąd");
                 isAdd = false;
             }
             else
             {
-                place = txtPlace.Text;
-                title = txtTitle.Text;
-                publishedYear = Int32.Parse(txtPublishedYear.Text);
-                isbn = mtxtISBN.Text;
-                comment = txtComment.Text;
-                ;
                 Int32.TryParse(cobPublisher.SelectedValue.ToString(), out int publisherID);
                 Int32.TryParse(cobSeries.SelectedValue.ToString(), out int seriesID);
                 Int32.TryParse(cobAuthor.SelectedValue.ToString(), out int authorID);
                 Int32.TryParse(cobTranslator.SelectedValue.ToString(), out int translatorID);
-
 
                 try
                 {
@@ -202,6 +195,7 @@
                         Book = book,
                     };
                     dbContex.IsbnNumbers.Add(isbnNo);
+
                     dbContex.SaveChanges();
                 }
                 catch (Exception ex)

@@ -1,4 +1,6 @@
-﻿namespace Library
+﻿using Library.SupportedClasses;
+
+namespace Library
 {
     public partial class frmAddNewPublisher : Form
     {
