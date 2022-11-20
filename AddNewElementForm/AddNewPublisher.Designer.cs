@@ -1,6 +1,6 @@
-﻿namespace Library
+﻿namespace Library.AddNewElementForm
 {
-    partial class frmAddNewSeries
+    partial class frmAddNewPublisher
     {
         /// <summary>
         /// Required designer variable.
@@ -28,28 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.labSeriesName = new System.Windows.Forms.Label();
-            this.txtSeriesName = new System.Windows.Forms.TextBox();
+            this.labPublisher = new System.Windows.Forms.Label();
+            this.txtPublisherName = new System.Windows.Forms.TextBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // labSeriesName
+            // labPublisher
             // 
-            this.labSeriesName.AutoSize = true;
-            this.labSeriesName.Location = new System.Drawing.Point(12, 17);
-            this.labSeriesName.Name = "labSeriesName";
-            this.labSeriesName.Size = new System.Drawing.Size(42, 20);
-            this.labSeriesName.TabIndex = 0;
-            this.labSeriesName.Text = "Seria";
+            this.labPublisher.AutoSize = true;
+            this.labPublisher.Location = new System.Drawing.Point(12, 17);
+            this.labPublisher.Name = "labPublisher";
+            this.labPublisher.Size = new System.Drawing.Size(102, 20);
+            this.labPublisher.TabIndex = 0;
+            this.labPublisher.Text = "Wydawnictwo";
             // 
-            // txtSeriesName
+            // txtPublisherName
             // 
-            this.txtSeriesName.Location = new System.Drawing.Point(113, 14);
-            this.txtSeriesName.Name = "txtSeriesName";
-            this.txtSeriesName.Size = new System.Drawing.Size(206, 27);
-            this.txtSeriesName.TabIndex = 1;
-            this.txtSeriesName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.goNext);
+            this.txtPublisherName.Location = new System.Drawing.Point(113, 14);
+            this.txtPublisherName.Name = "txtPublisherName";
+            this.txtPublisherName.Size = new System.Drawing.Size(206, 27);
+            this.txtPublisherName.TabIndex = 1;
+            this.txtPublisherName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.goNext);
             // 
             // btnSave
             // 
@@ -71,7 +71,7 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // frmAddNewSeries
+            // frmAddNewPublisher
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -79,13 +79,13 @@
             this.ControlBox = false;
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.txtSeriesName);
-            this.Controls.Add(this.labSeriesName);
+            this.Controls.Add(this.txtPublisherName);
+            this.Controls.Add(this.labPublisher);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "frmAddNewSeries";
-            this.Text = "Dodaj nową serię";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmAddNewSeries_closing);
-            this.Load += new System.EventHandler(this.frmAddNewSeries_load);
+            this.Name = "frmAddNewPublisher";
+            this.Text = "Dodaj nowe wydawnictwo";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmAddNewPublisher_closing);
+            this.Load += new System.EventHandler(this.frmAddNewPublisher_load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -93,8 +93,8 @@
 
         #endregion
 
-        private Label labSeriesName;
-        private TextBox txtSeriesName;
+        private Label labPublisher;
+        private TextBox txtPublisherName;
         private Button btnSave;
         private Button btnCancel;
     }

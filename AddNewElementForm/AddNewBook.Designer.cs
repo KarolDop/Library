@@ -1,4 +1,4 @@
-﻿namespace Library
+﻿namespace Library.AddNewElementForm
 {
     partial class frmAddNew
     {
@@ -158,7 +158,6 @@
             this.txtPublishedYear.Name = "txtPublishedYear";
             this.txtPublishedYear.Size = new System.Drawing.Size(278, 27);
             this.txtPublishedYear.TabIndex = 7;
-            this.txtPublishedYear.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.goNext);
             this.txtPublishedYear.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.acceptInt);
             // 
             // txtComment
@@ -214,6 +213,7 @@
             // 
             // cobAuthor
             // 
+            this.cobAuthor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cobAuthor.FormattingEnabled = true;
             this.cobAuthor.Location = new System.Drawing.Point(173, 19);
             this.cobAuthor.Name = "cobAuthor";
@@ -223,6 +223,7 @@
             // 
             // cobTranslator
             // 
+            this.cobTranslator.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cobTranslator.Enabled = false;
             this.cobTranslator.FormattingEnabled = true;
             this.cobTranslator.Location = new System.Drawing.Point(173, 53);
@@ -233,6 +234,7 @@
             // 
             // cobPublisher
             // 
+            this.cobPublisher.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cobPublisher.FormattingEnabled = true;
             this.cobPublisher.Location = new System.Drawing.Point(173, 87);
             this.cobPublisher.Name = "cobPublisher";
@@ -242,6 +244,7 @@
             // 
             // cobSeries
             // 
+            this.cobSeries.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cobSeries.Enabled = false;
             this.cobSeries.FormattingEnabled = true;
             this.cobSeries.Location = new System.Drawing.Point(173, 154);

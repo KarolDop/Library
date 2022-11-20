@@ -1,7 +1,13 @@
+using Library.AddNewElementForm;
+using Library.Entites;
+using Library.Entites.View;
+
 namespace Library
 {
     public partial class frmLibrary : Form
     {
+        LibraryContex dbContex;
+
         public frmLibrary()
         {
             InitializeComponent();
@@ -40,6 +46,15 @@ namespace Library
         {
             var addFormSeries = new frmAddNewSeries();
             addFormSeries.ShowDialog();
+        }
+
+        private void frmMain_Load(object sender, EventArgs e)
+        {
+            dbContex = new LibraryContex();
+
+            var allBooks = dbContex.ViewAllBooks.ToList();//.OrderBy(allBooks => allBooks.Author);
+
+            dgvAllBooks.DataSource = allBooks;
         }
     }
 }

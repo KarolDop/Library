@@ -1,6 +1,7 @@
-﻿using Library.SupportedClasses;
+﻿using Library.Entites;
+using Library.SupportedClasses;
 
-namespace Library
+namespace Library.AddNewElementForm
 {
     public partial class frmAddNew : Form
     {
@@ -104,12 +105,12 @@ namespace Library
             var comment = txtComment.Text;
             var result = DialogResult.OK;
             var isAdd = true;
-            var emptyFieldCheck = new bool[4];
-            var emptyFieldString = new string[4];
+            var emptyFieldCheck = new bool[5];
+            var emptyFieldString = new string[5];
 
             emptyFieldCheck[0] = String.IsNullOrEmpty(place);
             emptyFieldCheck[1] = String.IsNullOrEmpty(title);
-            emptyFieldCheck[2] = Int32.TryParse(txtPublishedYear.Text, out int publishedYear);
+            emptyFieldCheck[2] = !Int32.TryParse(txtPublishedYear.Text, out int publishedYear);
             if (chbIsbn13.Checked == false)
             {
                 emptyFieldCheck[3] = (isbn.Length != 13);
@@ -118,11 +119,13 @@ namespace Library
             {
                 emptyFieldCheck[3] = (isbn.Length != 17);
             }
-
+            emptyFieldCheck[4] = DateTime.Now.Year <= publishedYear;
+            
             emptyFieldString[0] = "Pole miejsce nie może być puste\n";
             emptyFieldString[1] = "Pole tytuł nie może być puste\n";
             emptyFieldString[2] = "Pole rok nie może być puste\n";
             emptyFieldString[3] = "Pole ISBN nie może być puste\n";
+            emptyFieldString[4] = "Rok nie może być późniejszy niż dzisiaj\n";
 
             var checkEmptyField = EmptyField.EmptyFieldMessage(emptyFieldString, emptyFieldCheck);
 
@@ -186,6 +189,7 @@ namespace Library
                             Book = book,
                             SerieId = seriesID
                         };
+                        dbContex.SerieBooks.Add(serieBook);
                     }
 
                     var isbnNo = new IsbnNumber()

@@ -1,23 +1,23 @@
-﻿using Library.SupportedClasses;
+﻿using Library.Entites;
+using Library.SupportedClasses;
 
-namespace Library
+namespace Library.AddNewElementForm
 {
-
-    public partial class frmAddNewAuthor : Form
+    public partial class frmAddNewSeries : Form
     {
         LibraryContex dbContex;
 
-        public frmAddNewAuthor()
+        public frmAddNewSeries()
         {
             InitializeComponent();
         }
 
-        public void frmAddNewAuthor_load(object sender, EventArgs e)
+        private void frmAddNewSeries_load(object sender, EventArgs e)
         {
             dbContex = new LibraryContex();
         }
 
-        private void frmAddNewAuthor_closing(object sender, FormClosingEventArgs e)
+        private void frmAddNewSeries_closing(object sender, FormClosingEventArgs e)
         {
             dbContex.Dispose();
         }
@@ -27,21 +27,17 @@ namespace Library
             this.Close();
         }
 
-
         private void btnSave_Click(object sender, EventArgs e)
         {
-            var firstName = txtFirstName.Text;
-            var lastName = txtLastName.Text;
+            var seriesName = txtSeriesName.Text;
             var result = DialogResult.OK;
             var isAdd = true;
-            var emptyFieldCheck = new bool[2];
-            var emptyFieldString = new string[2];
+            var emptyFieldCheck = new bool[1];
+            var emptyFieldString = new string[1];
 
-            emptyFieldCheck[0] = String.IsNullOrEmpty(firstName);
-            emptyFieldCheck[1] = String.IsNullOrEmpty(lastName);
+            emptyFieldCheck[0] = String.IsNullOrEmpty(seriesName);
 
-            emptyFieldString[0] = "Pole imię nie może być puste\n";
-            emptyFieldString[1] = "Pole naziwsko nie może być puste\n";
+            emptyFieldString[0] = "Pole seria nie może być puste\n";
 
             var checkEmptyField = EmptyField.EmptyFieldMessage(emptyFieldString, emptyFieldCheck);
 
@@ -55,32 +51,29 @@ namespace Library
             {
                 try
                 {
-                    var autor = new Author()
+                    var seria = new Serie()
                     {
-                        AuthorFirstName = firstName,
-                        AuthorLastName = lastName,
-                        FullName = lastName + ", " + firstName
+                        SeriesName = seriesName
                     };
 
-                    dbContex.Authors.Add(autor);
+                    dbContex.Series.Add(seria);
                     dbContex.SaveChanges();
                 }
                 catch (Exception ex)
                 {
-                    result = CustomMessageBox.YesOrNoMessegeBoxWarning(ex.Message + "\nCzy chcesz spróbować raz jeszcze?", 
+                    result = CustomMessageBox.YesOrNoMessegeBoxWarning(ex.Message + "\nCzy chcesz spróbować raz jeszcze?",
                         "Bład");
                     isAdd = false;
                 }
                 finally
                 {
-                    txtFirstName.Clear();
-                    txtLastName.Clear();
+                    txtSeriesName.Clear();
                 }
             }
 
             if (isAdd)
             {
-                result = CustomMessageBox.YesOrNoMessegeBoxInformation("Dodano nowego autora\nCzy chcesz dodać kolejnego?", 
+                result = CustomMessageBox.YesOrNoMessegeBoxInformation("Dodano nową serie\nCzy chcesz dodać kolejnego?",
                     "Sukces!");
             }
 
@@ -90,13 +83,13 @@ namespace Library
             }
             else
             {
-                txtFirstName.Focus();
+                txtSeriesName.Focus();
             }
         }
 
         private void goNext(object sender, KeyPressEventArgs e)
         {
-            if(e.KeyChar == 13)
+            if (e.KeyChar == 13)
             {
                 this.SelectNextControl((Control)sender, true, true, true, true);
             }

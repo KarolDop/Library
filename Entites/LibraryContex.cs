@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Library.Entites.View;
+using Microsoft.EntityFrameworkCore;
 
-namespace Library
+namespace Library.Entites
 {
     public class LibraryContex : DbContext
     {
@@ -14,6 +15,7 @@ namespace Library
         public DbSet<TranslatorBooks> TranslatorsBook { get; set; }
         public DbSet<IsbnNumber> IsbnNumbers { get; set; }
         public DbSet<SerieBook> SerieBooks { get; set; }
+        public DbSet<AllBooks> ViewAllBooks { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -82,6 +84,20 @@ namespace Library
                 book.HasOne(b => b.Publisher)
                 .WithMany(pu => pu.Books)
                 .HasForeignKey(b => b.PublisherID);
+            });
+
+            modelBuilder.Entity<AllBooks>(view =>
+            {
+                view.ToView("View_AllBooks");
+                view.HasNoKey();
+                
+                view.Property(view => view.Author).HasColumnName("Autor");
+                view.Property(view => view.Translator).HasColumnName("Tłumacz");
+                view.Property(view => view.Title).HasColumnName("Tytuł");
+                view.Property(view => view.Series).HasColumnName("Seria");
+                view.Property(view => view.Publisher).HasColumnName("Wydawnictwo");
+                view.Property(view => view.PublishedYear).HasColumnName("Rok wydania");
+                view.Property(view => view.HaveRad).HasColumnName("Przeczytane");
             });
         }
     }

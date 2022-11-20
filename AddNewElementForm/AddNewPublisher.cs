@@ -1,6 +1,7 @@
-﻿using Library.SupportedClasses;
+﻿using Library.Entites;
+using Library.SupportedClasses;
 
-namespace Library
+namespace Library.AddNewElementForm
 {
     public partial class frmAddNewPublisher : Form
     {

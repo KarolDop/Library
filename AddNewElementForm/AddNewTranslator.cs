@@ -1,22 +1,23 @@
-﻿using Library.SupportedClasses;
+﻿using Library.Entites;
+using Library.SupportedClasses;
 
-namespace Library
+namespace Library.AddNewElementForm
 {
-    public partial class frmAddNewSeries : Form
+    public partial class frmAddNewTranslator : Form
     {
         LibraryContex dbContex;
 
-        public frmAddNewSeries()
+        public frmAddNewTranslator()
         {
             InitializeComponent();
         }
 
-        private void frmAddNewSeries_load(object sender, EventArgs e)
+        private void frmAddNewTranslator_load(object sender, EventArgs e)
         {
             dbContex = new LibraryContex();
         }
 
-        private void frmAddNewSeries_closing(object sender, FormClosingEventArgs e)
+        private void frmAddNewTranslator_closing(object sender, FormClosingEventArgs e)
         {
             dbContex.Dispose();
         }
@@ -28,15 +29,19 @@ namespace Library
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            var seriesName = txtSeriesName.Text;
+            var firstName = txtFirstName.Text;
+            var lastName = txtLastName.Text;
             var result = DialogResult.OK;
             var isAdd = true;
-            var emptyFieldCheck = new bool[1];
-            var emptyFieldString = new string[1];
 
-            emptyFieldCheck[0] = String.IsNullOrEmpty(seriesName);
+            var emptyFieldCheck = new bool[2];
+            var emptyFieldString = new string[2];
 
-            emptyFieldString[0] = "Pole seria nie może być puste\n";
+            emptyFieldCheck[0] = String.IsNullOrEmpty(firstName);
+            emptyFieldCheck[1] = String.IsNullOrEmpty(lastName);
+
+            emptyFieldString[0] = "Pole imię nie może być puste\n";
+            emptyFieldString[1] = "Pole naziwsko nie może być puste\n";
 
             var checkEmptyField = EmptyField.EmptyFieldMessage(emptyFieldString, emptyFieldCheck);
 
@@ -50,12 +55,15 @@ namespace Library
             {
                 try
                 {
-                    var seria = new Serie()
+
+                    var translator = new Translator()
                     {
-                        SeriesName = seriesName
+                        TranslatorFirstName = firstName,
+                        TranslatorLastName = lastName,
+                        FullName = lastName + ", " + firstName
                     };
 
-                    dbContex.Series.Add(seria);
+                    dbContex.Translators.Add(translator);
                     dbContex.SaveChanges();
                 }
                 catch (Exception ex)
@@ -66,13 +74,14 @@ namespace Library
                 }
                 finally
                 {
-                    txtSeriesName.Clear();
+                    txtFirstName.Clear();
+                    txtLastName.Clear();
                 }
             }
 
             if (isAdd)
             {
-                result = CustomMessageBox.YesOrNoMessegeBoxInformation("Dodano nową serie\nCzy chcesz dodać kolejnego?",
+                result = CustomMessageBox.YesOrNoMessegeBoxInformation("Dodano nowego tłumacza\nCzy chcesz dodać kolejnego?",
                     "Sukces!");
             }
 
@@ -82,7 +91,7 @@ namespace Library
             }
             else
             {
-                txtSeriesName.Focus();
+                txtFirstName.Focus();
             }
         }
 

@@ -174,6 +174,7 @@
             this.MainMenuStrip = this.msMenu;
             this.Name = "frmLibrary";
             this.Text = "Biblioteka";
+            this.Load += new System.EventHandler(this.frmMain_Load);
             this.msMenu.ResumeLayout(false);
             this.msMenu.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAllBooks)).EndInit();

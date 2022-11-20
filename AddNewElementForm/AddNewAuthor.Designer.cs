@@ -1,6 +1,6 @@
-﻿namespace Library
+﻿namespace Library.AddNewElementForm
 {
-    partial class frmAddNewTranslator
+    partial class frmAddNewAuthor
     {
         /// <summary>
         /// Required designer variable.
@@ -90,7 +90,7 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // frmAddNewTranslator
+            // frmAddNewAuthor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -103,10 +103,10 @@
             this.Controls.Add(this.labLastName);
             this.Controls.Add(this.labFirstName);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "frmAddNewTranslator";
-            this.Text = "Dodaj nowego tłumacza";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmAddNewTranslator_closing);
-            this.Load += new System.EventHandler(this.frmAddNewTranslator_load);
+            this.Name = "frmAddNewAuthor";
+            this.Text = "Dodaj nowego autora";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmAddNewAuthor_closing);
+            this.Load += new System.EventHandler(this.frmAddNewAuthor_load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
