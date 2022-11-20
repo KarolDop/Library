@@ -28,20 +28,26 @@ namespace Library
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            var seriesName = "";
+            var seriesName = txtSeriesName.Text;
             var result = DialogResult.OK;
             var isAdd = true;
+            var emptyFieldCheck = new bool[1];
+            var emptyFieldString = new string[1];
 
-            if (String.IsNullOrEmpty(txtSeriesName.Text))
+            emptyFieldCheck[0] = String.IsNullOrEmpty(seriesName);
+
+            emptyFieldString[0] = "Pole seria nie może być puste\n";
+
+            var checkEmptyField = EmptyField.EmptyFieldMessage(emptyFieldString, emptyFieldCheck);
+
+            if (checkEmptyField.Item2)
             {
-                result = CustomMessageBox.YesOrNoMessegeBoxWarning("Nie można zapisać pustego pola do bazy danych\n" +
-                    "Czy Chcesz spróbować raz jeszcze?", "Błąd");
+                result = CustomMessageBox.YesOrNoMessegeBoxWarning(checkEmptyField.Item1 +
+                    "\nCzy Chcesz spróbować raz jeszcze?", "Błąd");
                 isAdd = false;
             }
             else
             {
-                seriesName = txtSeriesName.Text;
-
                 try
                 {
                     var seria = new Serie()

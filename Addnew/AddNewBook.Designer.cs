@@ -159,6 +159,7 @@
             this.txtPublishedYear.Size = new System.Drawing.Size(278, 27);
             this.txtPublishedYear.TabIndex = 7;
             this.txtPublishedYear.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.goNext);
+            this.txtPublishedYear.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.acceptInt);
             // 
             // txtComment
             // 

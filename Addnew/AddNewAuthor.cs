@@ -30,22 +30,29 @@ namespace Library
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            var firstName = "";
-            var lastName = "";
+            var firstName = txtFirstName.Text;
+            var lastName = txtLastName.Text;
             var result = DialogResult.OK;
             var isAdd = true;
+            var emptyFieldCheck = new bool[2];
+            var emptyFieldString = new string[2];
 
-            if (String.IsNullOrEmpty(txtFirstName.Text) || String.IsNullOrEmpty(txtLastName.Text))
+            emptyFieldCheck[0] = String.IsNullOrEmpty(firstName);
+            emptyFieldCheck[1] = String.IsNullOrEmpty(lastName);
+
+            emptyFieldString[0] = "Pole imię nie może być puste\n";
+            emptyFieldString[1] = "Pole naziwsko nie może być puste\n";
+
+            var checkEmptyField = EmptyField.EmptyFieldMessage(emptyFieldString, emptyFieldCheck);
+
+            if (checkEmptyField.Item2)
             {
-                result = CustomMessageBox.YesOrNoMessegeBoxWarning("Nie można zapisać pustego pola do bazy danych\n" +
-                    "Czy Chcesz spróbować raz jeszcze?", "Błąd");
+                result = CustomMessageBox.YesOrNoMessegeBoxWarning(checkEmptyField.Item1 +
+                    "\nCzy Chcesz spróbować raz jeszcze?", "Błąd");
                 isAdd = false;
             }
             else
             {
-                firstName = txtFirstName.Text;
-                lastName = txtLastName.Text;
-
                 try
                 {
                     var autor = new Author()

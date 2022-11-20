@@ -100,7 +100,6 @@ namespace Library
         {
             var place = txtPlace.Text;
             var title = txtTitle.Text;
-            Int32.TryParse(txtPublishedYear.Text, out int publishedYear);
             var isbn = mtxtISBN.Text.Replace(" ", String.Empty);
             var comment = txtComment.Text;
             var result = DialogResult.OK;
@@ -108,9 +107,9 @@ namespace Library
             var emptyFieldCheck = new bool[4];
             var emptyFieldString = new string[4];
 
-            emptyFieldCheck[0] = String.IsNullOrEmpty(txtPlace.Text);
-            emptyFieldCheck[1] = String.IsNullOrEmpty(txtTitle.Text);
-            emptyFieldCheck[2] = String.IsNullOrEmpty(txtPublishedYear.Text);
+            emptyFieldCheck[0] = String.IsNullOrEmpty(place);
+            emptyFieldCheck[1] = String.IsNullOrEmpty(title);
+            emptyFieldCheck[2] = Int32.TryParse(txtPublishedYear.Text, out int publishedYear);
             if (chbIsbn13.Checked == false)
             {
                 emptyFieldCheck[3] = (isbn.Length != 13);
@@ -125,12 +124,12 @@ namespace Library
             emptyFieldString[2] = "Pole rok nie może być puste\n";
             emptyFieldString[3] = "Pole ISBN nie może być puste\n";
 
-            var check = EmptyField.EmptyFieldMessage(emptyFieldString, emptyFieldCheck);
+            var checkEmptyField = EmptyField.EmptyFieldMessage(emptyFieldString, emptyFieldCheck);
 
-            if (check.Item2)
+            if (checkEmptyField.Item2)
             {
-                result = CustomMessageBox.YesOrNoMessegeBoxWarning(check.Item1 +
-                    "Czy Chcesz spróbować raz jeszcze?", "Błąd");
+                result = CustomMessageBox.YesOrNoMessegeBoxWarning(checkEmptyField.Item1 +
+                    "\nCzy Chcesz spróbować raz jeszcze?", "Błąd");
                 isAdd = false;
             }
             else
@@ -234,6 +233,14 @@ namespace Library
             if (e.KeyChar == 13)
             {
                 this.SelectNextControl((Control)sender, true, true, true, true);
+            }
+        }
+
+        private void acceptInt(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
             }
         }
     }
