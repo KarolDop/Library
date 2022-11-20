@@ -28,20 +28,27 @@ namespace Library
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            var publisherName = "";
+            var publisherName = txtPublisherName.Text;
             var result = DialogResult.OK;
             var isAdd = true;
 
-            if (String.IsNullOrEmpty(txtPublisherName.Text))
+            var emptyFieldCheck = new bool[1];
+            var emptyFieldString = new string[1];
+
+            emptyFieldCheck[0] = String.IsNullOrEmpty(publisherName);
+
+            emptyFieldString[0] = "Pole wydawca nie może być puste\n";
+
+            var checkEmptyField = EmptyField.EmptyFieldMessage(emptyFieldString, emptyFieldCheck);
+
+            if (checkEmptyField.Item2)
             {
-                result = CustomMessageBox.YesOrNoMessegeBoxWarning("Nie można zapisać pustego pola do bazy danych\n" +
-                    "Czy Chcesz spróbować raz jeszcze?", "Błąd");
+                result = CustomMessageBox.YesOrNoMessegeBoxWarning(checkEmptyField.Item1 +
+                    "\nCzy Chcesz spróbować raz jeszcze?", "Błąd");
                 isAdd = false;
             }
             else
             {
-                publisherName = txtPublisherName.Text;
-
                 try
                 {
                     var publisher = new Publisher()
