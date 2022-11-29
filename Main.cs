@@ -1,6 +1,6 @@
 using Library.AddNewElementForm;
 using Library.Entites;
-using Library.Entites.View;
+using Library.DelateElementForm;
 
 namespace Library
 {
@@ -16,6 +16,11 @@ namespace Library
         private void zamknijToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void oProgramieToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Witaj w programie \"Moja biblioteczka\"\nWersja: Under construction ", "Witaj!",MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnAddNew_Click(object sender, EventArgs e)
@@ -52,9 +57,16 @@ namespace Library
         {
             dbContex = new LibraryContex();
 
-            var allBooks = dbContex.ViewAllBooks.ToList();//.OrderBy(allBooks => allBooks.Author);
+            var allBooks = dbContex.ViewAllBooks.ToList();
 
             dgvAllBooks.DataSource = allBooks;
+            dgvAllBooks.AutoResizeColumns();
+        }
+
+        private void btnDelateSeria_Click(object sender, EventArgs e)
+        {
+            var deleteFormSeries = new frmDeleteSerie();
+            deleteFormSeries.ShowDialog();
         }
     }
 }

@@ -35,11 +35,15 @@
             this.dgvAllBooks = new System.Windows.Forms.DataGridView();
             this.btnAddNewBook = new System.Windows.Forms.Button();
             this.btnModify = new System.Windows.Forms.Button();
-            this.btnRemove = new System.Windows.Forms.Button();
+            this.btnRemoveBook = new System.Windows.Forms.Button();
             this.btnAddNewSeries = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnAddNewPublisher = new System.Windows.Forms.Button();
             this.btnAddNewTranslator = new System.Windows.Forms.Button();
             this.btnAddNewAuthor = new System.Windows.Forms.Button();
+            this.btnRemoveAuthor = new System.Windows.Forms.Button();
+            this.btnDelateTranslator = new System.Windows.Forms.Button();
+            this.btnDeleatePublisher = new System.Windows.Forms.Button();
+            this.btnDelateSeria = new System.Windows.Forms.Button();
             this.msMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAllBooks)).BeginInit();
             this.SuspendLayout();
@@ -70,6 +74,7 @@
             this.oProgramieToolStripMenuItem.Name = "oProgramieToolStripMenuItem";
             this.oProgramieToolStripMenuItem.Size = new System.Drawing.Size(177, 26);
             this.oProgramieToolStripMenuItem.Text = "O programie";
+            this.oProgramieToolStripMenuItem.Click += new System.EventHandler(this.oProgramieToolStripMenuItem_Click);
             // 
             // zamknijToolStripMenuItem
             // 
@@ -107,14 +112,14 @@
             this.btnModify.Text = "Modyfikuj pozycję";
             this.btnModify.UseVisualStyleBackColor = true;
             // 
-            // btnRemove
+            // btnRemoveBook
             // 
-            this.btnRemove.Location = new System.Drawing.Point(12, 397);
-            this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(167, 29);
-            this.btnRemove.TabIndex = 4;
-            this.btnRemove.Text = "Usuń pozycję";
-            this.btnRemove.UseVisualStyleBackColor = true;
+            this.btnRemoveBook.Location = new System.Drawing.Point(12, 397);
+            this.btnRemoveBook.Name = "btnRemoveBook";
+            this.btnRemoveBook.Size = new System.Drawing.Size(198, 29);
+            this.btnRemoveBook.TabIndex = 4;
+            this.btnRemoveBook.Text = "Usuń książke";
+            this.btnRemoveBook.UseVisualStyleBackColor = true;
             // 
             // btnAddNewSeries
             // 
@@ -126,15 +131,15 @@
             this.btnAddNewSeries.UseVisualStyleBackColor = true;
             this.btnAddNewSeries.Click += new System.EventHandler(this.btnAddNewSeries_Click);
             // 
-            // button2
+            // btnAddNewPublisher
             // 
-            this.button2.Location = new System.Drawing.Point(624, 327);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(198, 29);
-            this.button2.TabIndex = 6;
-            this.button2.Text = "Dodaj nowe wydawnictwo";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnAddNewPublisher.Location = new System.Drawing.Point(624, 327);
+            this.btnAddNewPublisher.Name = "btnAddNewPublisher";
+            this.btnAddNewPublisher.Size = new System.Drawing.Size(198, 29);
+            this.btnAddNewPublisher.TabIndex = 6;
+            this.btnAddNewPublisher.Text = "Dodaj nowe wydawnictwo";
+            this.btnAddNewPublisher.UseVisualStyleBackColor = true;
+            this.btnAddNewPublisher.Click += new System.EventHandler(this.button2_Click);
             // 
             // btnAddNewTranslator
             // 
@@ -156,6 +161,44 @@
             this.btnAddNewAuthor.UseVisualStyleBackColor = true;
             this.btnAddNewAuthor.Click += new System.EventHandler(this.btnAddNewAuthor_Click);
             // 
+            // btnRemoveAuthor
+            // 
+            this.btnRemoveAuthor.Location = new System.Drawing.Point(216, 397);
+            this.btnRemoveAuthor.Name = "btnRemoveAuthor";
+            this.btnRemoveAuthor.Size = new System.Drawing.Size(198, 29);
+            this.btnRemoveAuthor.TabIndex = 4;
+            this.btnRemoveAuthor.Text = "Usuń autora";
+            this.btnRemoveAuthor.UseVisualStyleBackColor = true;
+            // 
+            // btnDelateTranslator
+            // 
+            this.btnDelateTranslator.Location = new System.Drawing.Point(420, 397);
+            this.btnDelateTranslator.Name = "btnDelateTranslator";
+            this.btnDelateTranslator.Size = new System.Drawing.Size(198, 29);
+            this.btnDelateTranslator.TabIndex = 4;
+            this.btnDelateTranslator.Text = "Usuń tłumacza";
+            this.btnDelateTranslator.UseVisualStyleBackColor = true;
+            // 
+            // btnDeleatePublisher
+            // 
+            this.btnDeleatePublisher.Location = new System.Drawing.Point(624, 397);
+            this.btnDeleatePublisher.Name = "btnDeleatePublisher";
+            this.btnDeleatePublisher.Size = new System.Drawing.Size(198, 29);
+            this.btnDeleatePublisher.TabIndex = 4;
+            this.btnDeleatePublisher.Text = "Usuń wydawnictwo";
+            this.btnDeleatePublisher.UseVisualStyleBackColor = true;
+            // 
+            // btnDelateSeria
+            // 
+            this.btnDelateSeria.Location = new System.Drawing.Point(828, 397);
+            this.btnDelateSeria.Name = "btnDelateSeria";
+            this.btnDelateSeria.Size = new System.Drawing.Size(198, 29);
+            this.btnDelateSeria.TabIndex = 4;
+            this.btnDelateSeria.Text = "Usuń serię";
+            this.btnDelateSeria.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnDelateSeria.UseVisualStyleBackColor = true;
+            this.btnDelateSeria.Click += new System.EventHandler(this.btnDelateSeria_Click);
+            // 
             // frmLibrary
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -163,15 +206,20 @@
             this.ClientSize = new System.Drawing.Size(1429, 450);
             this.Controls.Add(this.btnAddNewAuthor);
             this.Controls.Add(this.btnAddNewTranslator);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btnAddNewPublisher);
             this.Controls.Add(this.btnAddNewSeries);
-            this.Controls.Add(this.btnRemove);
+            this.Controls.Add(this.btnDelateSeria);
+            this.Controls.Add(this.btnDeleatePublisher);
+            this.Controls.Add(this.btnDelateTranslator);
+            this.Controls.Add(this.btnRemoveAuthor);
+            this.Controls.Add(this.btnRemoveBook);
             this.Controls.Add(this.btnModify);
             this.Controls.Add(this.btnAddNewBook);
             this.Controls.Add(this.dgvAllBooks);
             this.Controls.Add(this.msMenu);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MainMenuStrip = this.msMenu;
+            this.MaximizeBox = false;
             this.Name = "frmLibrary";
             this.Text = "Biblioteka";
             this.Load += new System.EventHandler(this.frmMain_Load);
@@ -192,10 +240,14 @@
         private DataGridView dgvAllBooks;
         private Button btnAddNewBook;
         private Button btnModify;
-        private Button btnRemove;
+        private Button btnRemoveBook;
         private Button btnAddNewSeries;
-        private Button button2;
+        private Button btnAddNewPublisher;
         private Button btnAddNewTranslator;
         private Button btnAddNewAuthor;
+        private Button btnRemoveAuthor;
+        private Button btnDelateTranslator;
+        private Button btnDeleatePublisher;
+        private Button btnDelateSeria;
     }
 }

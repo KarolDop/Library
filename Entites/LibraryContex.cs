@@ -75,7 +75,7 @@ namespace Library.Entites
                     .HasForeignKey(sb => sb.BookId),
 
                     sb => sb.HasKey(sb => sb.Id)
-                    );
+                    ); 
 
                 book.HasMany(b => b.Remarks)
                 .WithOne(r => r.Book)
