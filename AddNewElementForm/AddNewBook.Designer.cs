@@ -334,6 +334,7 @@
             this.Load += new System.EventHandler(this.AddNewBook_load);
             this.ResumeLayout(false);
             this.PerformLayout();
+            this.MaximizeBox = false;
 
         }
 

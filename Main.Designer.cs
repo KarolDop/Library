@@ -187,6 +187,7 @@
             this.btnDeleatePublisher.TabIndex = 4;
             this.btnDeleatePublisher.Text = "Usuń wydawnictwo";
             this.btnDeleatePublisher.UseVisualStyleBackColor = true;
+            this.btnDeleatePublisher.Click += new System.EventHandler(this.btnDeleatePublisher_Click);
             // 
             // btnDelateSeria
             // 

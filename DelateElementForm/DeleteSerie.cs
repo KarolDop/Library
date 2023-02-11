@@ -21,7 +21,7 @@ namespace Library.DelateElementForm
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            Int32.TryParse(ctxtSeries.SelectedValue.ToString(), out int seriesToDelete);
+            Int32.TryParse(ctxtSeries.SelectedValue.ToString(), out int idSeriesToDelete);
             var isDeleted = true;
 
             var result = DialogResult.OK;
@@ -33,32 +33,32 @@ namespace Library.DelateElementForm
 
                 if (allOrNot == DialogResult.No)
                 {
-                    var series = dbContex.Series.Where(sb => sb.Id == seriesToDelete).ToList();
-                    dbContex.Series.RemoveRange(series);
+                    var seriesToDelete = dbContex.Series.Where(s => s.Id == idSeriesToDelete).ToList();
+                    dbContex.Series.RemoveRange(seriesToDelete);
                     dbContex.SaveChanges();
                 }
                 else
                 {
-                    var series = dbContex.Series.Where(s => s.Id == seriesToDelete).ToList();
-                    var seriesBook = dbContex.SerieBooks.Where(sb => sb.SerieId == seriesToDelete).ToList();
-                    IQueryable<Book> bookContex = null;
-                    List<Book> books = new List<Book>();
-                    foreach (var item in seriesBook)
+                    var seriesToDelete = dbContex.Series.Where(s => s.Id == idSeriesToDelete).ToList();
+
+                    var seriesBookToDelete = dbContex.SerieBooks.Where(sb => sb.SerieId == idSeriesToDelete).ToList();
+
+                    var bookToDelete = new List<Book>();
+
+                    foreach (var item in seriesBookToDelete)
                     {
-                        if (seriesBook.First() == item)
+                        foreach (var item2 in dbContex.Books)
                         {
-                            bookContex = (dbContex.Books.Where(b => b.Id == item.BookId));
-                        }
-                        else
-                        {
-                            bookContex = bookContex.Concat(dbContex.Books.Where(b => b.Id == item.BookId));
+                            if (item2.Id == item.Id)
+                                bookToDelete.Add(item2);
                         }
                     }
-                    books = bookContex.ToList();
 
-                    dbContex.Series.RemoveRange(series);
-                    dbContex.SerieBooks.RemoveRange(seriesBook);
-                    dbContex.Books.RemoveRange(books);
+                    dbContex.Series.RemoveRange(seriesToDelete);
+                    if(seriesBookToDelete.Count != 0)
+                        dbContex.SerieBooks.RemoveRange(seriesBookToDelete);
+                    if(bookToDelete.Count != 0)
+                        dbContex.Books.RemoveRange(bookToDelete);
 
                     dbContex.SaveChanges();
                 }
@@ -81,7 +81,7 @@ namespace Library.DelateElementForm
             }
             else
             {
-                FillCob.FillDataComboTextBox(ctxtSeries, "SeriesName", "Id", dbContex);
+                FillCob<Serie>.FillDataComboTextBox(ctxtSeries, "SeriesName", "Id", dbContex.Series.ToList());
             }
         }
 
@@ -90,7 +90,7 @@ namespace Library.DelateElementForm
             dbContex = new LibraryContex();
 
 
-            FillCob.FillDataComboTextBox(ctxtSeries, "SeriesName","Id" ,dbContex);
+            FillCob<Serie>.FillDataComboTextBox(ctxtSeries, "SeriesName", "Id", dbContex.Series.ToList());
         }
 
         private void DeleteSeries_closing(object sender, FormClosingEventArgs e)

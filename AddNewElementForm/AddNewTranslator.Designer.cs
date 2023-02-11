@@ -109,6 +109,7 @@
             this.Load += new System.EventHandler(this.frmAddNewTranslator_load);
             this.ResumeLayout(false);
             this.PerformLayout();
+            this.MaximizeBox = false;
 
         }
 
