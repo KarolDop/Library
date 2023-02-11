@@ -1,6 +1,6 @@
 ﻿namespace Library.DelateElementForm
 {
-    partial class frmDeleteSerie
+    partial class frmDeletePublisher
     {
         /// <summary>
         /// Required designer variable.
@@ -28,20 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.labSeriesName = new System.Windows.Forms.Label();
+            this.labPublisher = new System.Windows.Forms.Label();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.ctxtSeries = new System.Windows.Forms.ComboBox();
+            this.ctxtPublisher = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
-            // labSeriesName
+            // labPublisher
             // 
-            this.labSeriesName.AutoSize = true;
-            this.labSeriesName.Location = new System.Drawing.Point(12, 17);
-            this.labSeriesName.Name = "labSeriesName";
-            this.labSeriesName.Size = new System.Drawing.Size(42, 20);
-            this.labSeriesName.TabIndex = 0;
-            this.labSeriesName.Text = "Seria";
+            this.labPublisher.AutoSize = true;
+            this.labPublisher.Location = new System.Drawing.Point(12, 17);
+            this.labPublisher.Name = "labPublisher";
+            this.labPublisher.Size = new System.Drawing.Size(102, 20);
+            this.labPublisher.TabIndex = 0;
+            this.labPublisher.Text = "Wydawnictwo";
             // 
             // btnDelete
             // 
@@ -63,41 +63,41 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // ctxtSeries
+            // ctxtPublisher
             // 
-            this.ctxtSeries.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ctxtSeries.FormattingEnabled = true;
-            this.ctxtSeries.Location = new System.Drawing.Point(113, 14);
-            this.ctxtSeries.Name = "ctxtSeries";
-            this.ctxtSeries.Size = new System.Drawing.Size(206, 28);
-            this.ctxtSeries.TabIndex = 4;
+            this.ctxtPublisher.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ctxtPublisher.FormattingEnabled = true;
+            this.ctxtPublisher.Location = new System.Drawing.Point(113, 14);
+            this.ctxtPublisher.Name = "ctxtPublisher";
+            this.ctxtPublisher.Size = new System.Drawing.Size(206, 28);
+            this.ctxtPublisher.TabIndex = 4;
             // 
-            // frmDeleteSerie
+            // DeletePublisher
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(331, 143);
             this.ControlBox = false;
-            this.Controls.Add(this.ctxtSeries);
+            this.Controls.Add(this.ctxtPublisher);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnDelete);
-            this.Controls.Add(this.labSeriesName);
+            this.Controls.Add(this.labPublisher);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "frmDeleteSerie";
-            this.Text = "Usuń serię";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DeleteSeries_closing);
-            this.Load += new System.EventHandler(this.DeleteSeries_load);
+            this.MaximizeBox = false;
+            this.Name = "DeletePublisher";
+            this.Text = "Usuń wydawnictwo";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DeletePublisher_closing);
+            this.Load += new System.EventHandler(this.DeletePublisher_load);
             this.ResumeLayout(false);
             this.PerformLayout();
-            this.MaximizeBox = false;
 
         }
 
         #endregion
 
-        private Label labSeriesName;
+        private Label labPublisher;
         private Button btnDelete;
         private Button btnCancel;
-        private ComboBox ctxtSeries;
+        private ComboBox ctxtPublisher;
     }
 }

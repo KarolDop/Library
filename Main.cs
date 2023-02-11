@@ -68,5 +68,11 @@ namespace Library
             var deleteFormSeries = new frmDeleteSerie();
             deleteFormSeries.ShowDialog();
         }
+
+        private void btnDeleatePublisher_Click(object sender, EventArgs e)
+        {
+            var deleteFormPublisher = new frmDeletePublisher();
+            deleteFormPublisher.ShowDialog();
+        }
     }
 }

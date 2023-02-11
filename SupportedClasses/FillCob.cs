@@ -1,17 +1,9 @@
-﻿using Library.Entites;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Library.SupportedClasses
+﻿namespace Library.SupportedClasses
 {
-    public class FillCob
+    public class FillCob<T>
     {
-        public static void FillDataComboTextBox(ComboBox box ,string display, string value, LibraryContex dbContex)
+        public static void FillDataComboTextBox(ComboBox box ,string display, string value, List<T> data)
         {
-            var data = dbContex.Series.ToList();
             box.DisplayMember = display;
             box.ValueMember = value;
             box.DataSource = data;

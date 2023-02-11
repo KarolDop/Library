@@ -88,6 +88,7 @@
             this.Load += new System.EventHandler(this.frmAddNewPublisher_load);
             this.ResumeLayout(false);
             this.PerformLayout();
+            this.MaximizeBox = false;
 
         }
 

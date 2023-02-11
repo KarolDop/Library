@@ -33,32 +33,39 @@ namespace Library.DelateElementForm
 
                 if (allOrNot == DialogResult.No)
                 {
-                    var series = dbContex.Series.Where(sb => sb.Id == seriesToDelete).ToList();
+                    var series = dbContex.Series.Where(s => s.Id == seriesToDelete).ToList();
                     dbContex.Series.RemoveRange(series);
                     dbContex.SaveChanges();
                 }
                 else
                 {
                     var series = dbContex.Series.Where(s => s.Id == seriesToDelete).ToList();
+
                     var seriesBook = dbContex.SerieBooks.Where(sb => sb.SerieId == seriesToDelete).ToList();
+
                     IQueryable<Book> bookContex = null;
-                    List<Book> books = new List<Book>();
-                    foreach (var item in seriesBook)
+
+                    if (seriesBook.Count != 0)
                     {
-                        if (seriesBook.First() == item)
+                        foreach (var item in seriesBook)
                         {
-                            bookContex = (dbContex.Books.Where(b => b.Id == item.BookId));
-                        }
-                        else
-                        {
-                            bookContex = bookContex.Concat(dbContex.Books.Where(b => b.Id == item.BookId));
+                            if (seriesBook.First() == item)
+                            {
+                                bookContex = dbContex.Books.Where(b => b.Id == item.BookId);
+                            }
+                            else
+                            {
+                                bookContex = bookContex.Concat(dbContex.Books.Where(b => b.Id == item.BookId));
+                            }
                         }
                     }
-                    books = bookContex.ToList();
+                    List<Book> books = new List<Book>(bookContex.ToList()); 
 
                     dbContex.Series.RemoveRange(series);
-                    dbContex.SerieBooks.RemoveRange(seriesBook);
-                    dbContex.Books.RemoveRange(books);
+                    if(seriesBook.Count != 0)
+                        dbContex.SerieBooks.RemoveRange(seriesBook);
+                    if(books.Count != 0)
+                        dbContex.Books.RemoveRange(books);
 
                     dbContex.SaveChanges();
                 }
@@ -81,7 +88,7 @@ namespace Library.DelateElementForm
             }
             else
             {
-                FillCob.FillDataComboTextBox(ctxtSeries, "SeriesName", "Id", dbContex);
+                FillCob<Serie>.FillDataComboTextBox(ctxtSeries, "SeriesName", "Id", dbContex.Series.ToList());
             }
         }
 
@@ -90,7 +97,7 @@ namespace Library.DelateElementForm
             dbContex = new LibraryContex();
 
 
-            FillCob.FillDataComboTextBox(ctxtSeries, "SeriesName","Id" ,dbContex);
+            FillCob<Serie>.FillDataComboTextBox(ctxtSeries, "SeriesName", "Id", dbContex.Series.ToList());
         }
 
         private void DeleteSeries_closing(object sender, FormClosingEventArgs e)

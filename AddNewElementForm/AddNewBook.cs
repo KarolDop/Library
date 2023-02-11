@@ -16,26 +16,7 @@ namespace Library.AddNewElementForm
         private void AddNewBook_load(object sender, EventArgs e)
         {
             dbContex = new LibraryContex();
-
-            var publisher = dbContex.Publishers.ToList();
-            cobPublisher.DisplayMember = "PublisherName";
-            cobPublisher.ValueMember = "Id";
-            cobPublisher.DataSource = publisher;
-
-            var series = dbContex.Series.ToList();
-            cobSeries.DisplayMember = "SeriesName";
-            cobSeries.ValueMember = "Id";
-            cobSeries.DataSource = series;
-
-            var authors = dbContex.Authors.ToList();
-            cobAuthor.DisplayMember = "FullName";
-            cobAuthor.ValueMember = "Id";
-            cobAuthor.DataSource = authors;
-
-            var translators = dbContex.Translators.ToList();
-            cobTranslator.DisplayMember = "FullName";
-            cobTranslator.ValueMember = "Id";
-            cobTranslator.DataSource = translators;
+            FillComboBoxAddNewBook();
 
         }
 
@@ -246,6 +227,14 @@ namespace Library.AddNewElementForm
             {
                 e.Handled = true;
             }
+        }
+
+        private void FillComboBoxAddNewBook()
+        {
+            FillCob<Publisher>.FillDataComboTextBox(cobPublisher, "PublisherName", "Id", dbContex.Publishers.ToList());
+            FillCob<Serie>.FillDataComboTextBox(cobSeries, "SeriesName", "Id", dbContex.Series.ToList());
+            FillCob<Author>.FillDataComboTextBox(cobAuthor, "FullName", "Id", dbContex.Authors.ToList());
+            FillCob<Translator>.FillDataComboTextBox(cobTranslator, "FullName", "Id", dbContex.Translators.ToList());
         }
     }
 }
