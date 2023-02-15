@@ -54,7 +54,10 @@ namespace Library.DelateElementForm
                 foreach (var book in dbContex.Books)
                 {
                     if (book.PublisherID == publisherToDelete)
+                    {
                         bookToDelete.Add(book);
+                        idBookToDelete.Add(book.Id);
+                    }
                 }
 
                 dbContex.Publishers.RemoveRange(publisher);
