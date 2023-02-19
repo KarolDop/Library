@@ -2,7 +2,7 @@
 {
     public enum HaveRead
     {
-        No = 0,
-        Yes = 1
+        Nie = 0,
+        Tak = 1
     }
 }

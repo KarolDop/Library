@@ -7,6 +7,8 @@ namespace Library.AddNewElementForm
     {
         LibraryContex dbContex;
         HaveRead hr;
+        int howManyAuthor = 1;
+        List<int> authorsIdToAdd = new List<int>();
 
         public frmAddNew()
         {
@@ -53,11 +55,11 @@ namespace Library.AddNewElementForm
         {
             if (chbHaveRead.Checked == false)
             {
-                hr = HaveRead.No;
+                hr = HaveRead.Nie;
             }
             else
             {
-                hr = HaveRead.Yes;
+                hr = HaveRead.Tak;
             }
         }
 
@@ -203,14 +205,7 @@ namespace Library.AddNewElementForm
                     "Sukces!");
             }
 
-            if (result == DialogResult.No)
-            {
-                this.Close();
-            }
-            else
-            {
-                cobAuthor.Focus();
-            }
+            CloseOrContinue.valid(result, this, comboBox: cobAuthor);
         }
 
         private void goNext(object sender, KeyPressEventArgs e)
@@ -235,6 +230,32 @@ namespace Library.AddNewElementForm
             FillCob<Serie>.FillDataComboTextBox(cobSeries, "SeriesName", "Id", dbContex.Series.ToList());
             FillCob<Author>.FillDataComboTextBox(cobAuthor, "FullName", "Id", dbContex.Authors.ToList());
             FillCob<Translator>.FillDataComboTextBox(cobTranslator, "FullName", "Id", dbContex.Translators.ToList());
+        }
+
+        private void change_value(object sender, EventArgs e)
+        {
+            if(nudAuthor.Value > howManyAuthor)
+            {
+                Int32.TryParse(cobAuthor.SelectedValue.ToString(), out int authorID);
+                var author = dbContex.Authors.Where(a => a.Id == authorID).Select(f => f.FullName).ToList();
+                authorsIdToAdd.Add(authorID);
+                var result = CustomMessageBox.YesOrNoMessegeBoxInformation($"Czy chcesz dodać kolejnego autora?",
+                        "Sukces!");
+
+                if (result == DialogResult.No)
+                {
+                    nudAuthor.Value -= 1;
+                }
+                else
+                {
+                    howManyAuthor++;
+                }
+            }
+            else if(nudAuthor.Value <  howManyAuthor)
+            {
+                CustomMessageBox.YesOrNoMessegeBoxInformation($"Czy chcesz usunąć ostatniego dodanego autora",
+                        "Sukces!");
+            }
         }
     }
 }

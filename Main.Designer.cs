@@ -178,6 +178,7 @@
             this.btnDelateTranslator.TabIndex = 4;
             this.btnDelateTranslator.Text = "Usuń tłumacza";
             this.btnDelateTranslator.UseVisualStyleBackColor = true;
+            this.btnDelateTranslator.Click += new System.EventHandler(this.btnDelateTranslator_Click);
             // 
             // btnDeleatePublisher
             // 

@@ -78,14 +78,7 @@ namespace Library.AddNewElementForm
                     "Sukces!");
             }
 
-            if (result == DialogResult.No)
-            {
-                this.Close();
-            }
-            else
-            {
-                txtPublisherName.Focus();
-            }
+            CloseOrContinue.valid(result, this, txtPublisherName);
         }
 
         private void goNext(object sender, KeyPressEventArgs e)

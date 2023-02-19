@@ -53,6 +53,8 @@
             this.mtxtISBN = new System.Windows.Forms.MaskedTextBox();
             this.chbIsbn13 = new System.Windows.Forms.CheckBox();
             this.chbSeries = new System.Windows.Forms.CheckBox();
+            this.nudAuthor = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.nudAuthor)).BeginInit();
             this.SuspendLayout();
             // 
             // labAuthor
@@ -78,9 +80,9 @@
             this.labTranslator.AutoSize = true;
             this.labTranslator.Location = new System.Drawing.Point(12, 56);
             this.labTranslator.Name = "labTranslator";
-            this.labTranslator.Size = new System.Drawing.Size(105, 20);
+            this.labTranslator.Size = new System.Drawing.Size(67, 20);
             this.labTranslator.TabIndex = 3;
-            this.labTranslator.Text = "Imię tłumacza:";
+            this.labTranslator.Text = "Tłumacz:";
             // 
             // labPublisher
             // 
@@ -295,6 +297,29 @@
             this.chbSeries.CheckedChanged += new System.EventHandler(this.chbSeries_CheckedChanged);
             this.chbSeries.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.goNext);
             // 
+            // nudAuthor
+            // 
+            this.nudAuthor.Location = new System.Drawing.Point(129, 20);
+            this.nudAuthor.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.nudAuthor.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudAuthor.Name = "nudAuthor";
+            this.nudAuthor.Size = new System.Drawing.Size(38, 27);
+            this.nudAuthor.TabIndex = 33;
+            this.nudAuthor.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudAuthor.ValueChanged += new System.EventHandler(this.change_value);
+            // 
             // frmAddNew
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -302,6 +327,7 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(584, 425);
             this.ControlBox = false;
+            this.Controls.Add(this.nudAuthor);
             this.Controls.Add(this.chbSeries);
             this.Controls.Add(this.chbIsbn13);
             this.Controls.Add(this.mtxtISBN);
@@ -328,13 +354,14 @@
             this.Controls.Add(this.labTitle);
             this.Controls.Add(this.labAuthor);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "frmAddNew";
             this.Text = "Dodaj nową pozycję";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmAddNewBookClosing);
             this.Load += new System.EventHandler(this.AddNewBook_load);
+            ((System.ComponentModel.ISupportInitialize)(this.nudAuthor)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
-            this.MaximizeBox = false;
 
         }
 
@@ -369,5 +396,6 @@
         private CheckBox chbIsbn13;
         private ComboBox cobTranslator;
         private CheckBox chbSeries;
+        private NumericUpDown nudAuthor;
     }
 }
