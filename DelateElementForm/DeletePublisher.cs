@@ -49,20 +49,8 @@ namespace Library.DelateElementForm
             {
                 var publisher = dbContex.Publishers.Where(s => s.Id == publisherToDelete).ToList();
 
-                var bookToDelete = new List<Book>();
-
-                foreach (var book in dbContex.Books)
-                {
-                    if (book.PublisherID == publisherToDelete)
-                    {
-                        bookToDelete.Add(book);
-                        idBookToDelete.Add(book.Id);
-                    }
-                }
-
                 dbContex.Publishers.RemoveRange(publisher);
-                if (bookToDelete.Count != 0)
-                    dbContex.Books.RemoveRange(bookToDelete);
+
                 dbContex.SaveChanges();
             }
             catch (Exception ex)
