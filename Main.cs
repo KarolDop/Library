@@ -74,5 +74,11 @@ namespace Library
             var deleteFormPublisher = new frmDeletePublisher();
             deleteFormPublisher.ShowDialog();
         }
+
+        private void btnDelateTranslator_Click(object sender, EventArgs e)
+        {
+            var deleteFormTranslator = new frmDeleteTranslator();
+            deleteFormTranslator.ShowDialog();
+        }
     }
 }
