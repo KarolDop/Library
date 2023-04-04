@@ -23,6 +23,41 @@ namespace Library.DelateElementForm
             dbContex = new LibraryContex();
 
             FillCob<Translator>.FillDataComboTextBox(ctxtTranslator, "FullName", "Id", dbContex.Translators.ToList());
+
+            var result = DialogResult.OK;
+
+            try
+            {
+                DialogResult allOrNot = CustomMessageBox.YesOrNoMessegeBoxInformation("Czy chcesz usunąć również rekordy książek gdzie jest więcej niż jeden tłuymacz?","Pytanie");
+
+                switch(allOrNot)
+                {
+                    case DialogResult.Yes:
+                        {
+                            goto default;
+                        }
+                    case DialogResult.No:
+                        {
+                            goto default;
+                        }
+                    default:
+                        CustomMessageBox.YesOrNoMessegeBoxInformation("Usunięto tłumacza\nCzy chcesz usunąć kolejnego?", "Sukces!");
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                result = CustomMessageBox.YesOrNoMessegeBoxWarning("Nie udało się usunać wyniku czy chesz spróbować raz jeszcze?", "Błąd");
+            }
+
+            if (result == DialogResult.No)
+            {
+                this.Close();
+            }
+            else
+            {
+                FillCob<Translator>.FillDataComboTextBox(ctxtTranslator, "FullName", "Id", dbContex.Translators.ToList());
+            }
         }
 
         private void DeleteSeries_closing(object sender, FormClosingEventArgs e)
